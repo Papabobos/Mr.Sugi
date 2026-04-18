@@ -37,8 +37,8 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;}
 /* Cover UI: title at top of buttons area, buttons at bottom */
 #cover-ui{position:relative;z-index:20;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:5%;}
 .title-block{display:flex;flex-direction:column;align-items:center;margin-bottom:14px;}
-.gtitle{font-size:42px;color:#fbbf24;font-weight:bold;letter-spacing:5px;font-family:'Courier New',monospace;text-shadow:0 0 20px #f59e0b,3px 3px 0 #7c2d12,-1px -1px 0 #92400e;line-height:1;}
-.gsub{font-size:11px;color:#1e3a5f;letter-spacing:2px;font-family:'Courier New',monospace;margin-top:4px;background:rgba(180,210,255,0.15);padding:2px 10px;border-radius:2px;}
+.gtitle{font-size:52px;color:#fbbf24;font-weight:bold;letter-spacing:6px;font-family:'Courier New',monospace;text-shadow:0 0 28px #f59e0b,4px 4px 0 #7c2d12,-1px -1px 0 #92400e;line-height:1;}
+.gsub{font-size:15px;color:#ffffff;letter-spacing:3px;font-family:'Courier New',monospace;margin-top:8px;background:none;padding:0;border-radius:0;text-shadow:0 1px 8px rgba(0,0,0,0.9);}
 .gbtn{background:rgba(30,27,75,0.9);color:#e0e7ff;border:2px solid #6366f1;border-radius:4px;padding:10px 0;font-size:13px;font-family:'Courier New',monospace;font-weight:bold;cursor:pointer;letter-spacing:2px;margin:3px;width:210px;text-align:center;}
 .gbtn:active{background:#4338ca;}
 .gbtn.yl{background:rgba(69,26,3,0.9);border-color:#fbbf24;color:#fef3c7;}
@@ -46,7 +46,7 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;}
 .screen h2{color:#fbbf24;font-size:18px;letter-spacing:3px;margin-bottom:8px;}
 .screen p{color:#a78bfa;font-size:11px;text-align:center;line-height:2;}
 .bscore{color:#fbbf24;font-size:22px;font-weight:bold;margin:4px 0;}
-#overlay{background:rgba(3,1,15,0.97);}
+#overlay{background:rgba(3,1,15,0.97);justify-content:center;padding:16px;}
 #pause-sc{background:rgba(3,1,15,0.96);}
 #pause-sc h2{color:#a78bfa;font-size:16px;letter-spacing:2px;margin-bottom:14px;}
 #banner{background:rgba(3,1,15,0.93);}
@@ -108,9 +108,9 @@ canvas{display:block;image-rendering:pixelated;image-rendering:crisp-edges;}
     <h2 id="ov-t">GAME OVER</h2>
     <p id="ov-m"></p>
     <div class="bscore" id="ov-s"></div>
-    <div id="ov-hs" style="color:#fbbf24;font-size:12px;font-family:monospace;margin-bottom:6px;"></div>
-    <button class="gbtn" style="margin-top:8px;" onclick="startGame()">▶ MAIN LAGI</button>
-    <button class="gbtn yl" style="margin-top:4px;" onclick="goHome()">⌂ MENU UTAMA</button>
+    <div id="ov-hs" style="color:#fbbf24;font-size:12px;font-family:monospace;margin-bottom:10px;text-align:center;"></div>
+    <button class="gbtn" onclick="startGame()">▶ MAIN LAGI</button>
+    <button class="gbtn yl" style="margin-top:6px;" onclick="goHome()">⌂ KEMBALI KE MENU</button>
   </div>
   <div class="screen" id="pause-sc" style="display:none;">
     <h2>PAUSE</h2>
@@ -215,14 +215,14 @@ function drawCover(){
   for(let i=0;i<8;i++){const ang=-Math.PI/2+(i-3.5)*0.18;c.fillStyle='#fbbf24';c.beginPath();c.moveTo(W/2,0);c.lineTo(W/2+Math.cos(ang)*W*1.5,H*1.2);c.lineTo(W/2+Math.cos(ang+0.08)*W*1.5,H*1.2);c.closePath();c.fill();}
   c.restore();
   // Big Mr Sugi — positioned in upper 60% of screen
-  const sc=3.4,sx=W/2-15*sc,sy=H*0.04;
+  const sc=4.2,sx=W/2-15*sc,sy=H*0.02;
   drawSugiScaled(c,sx,sy,sc,null,0);
   // Floor line
-  c.fillStyle='rgba(180,140,60,0.35)';c.fillRect(0,H*0.62,W,3);
+  c.fillStyle='rgba(180,140,60,0.35)';c.fillRect(0,H*0.68,W,3);
   // Bottom vignette (covers lower 40% where buttons are)
-  const bv=c.createLinearGradient(0,H*0.52,0,H);
-  bv.addColorStop(0,'rgba(0,0,0,0)');bv.addColorStop(0.3,'rgba(3,1,20,0.6)');bv.addColorStop(1,'rgba(3,1,20,0.95)');
-  c.fillStyle=bv;c.fillRect(0,H*0.52,W,H*0.48);
+  const bv=c.createLinearGradient(0,H*0.55,0,H);
+  bv.addColorStop(0,'rgba(0,0,0,0)');bv.addColorStop(0.25,'rgba(3,1,20,0.55)');bv.addColorStop(1,'rgba(3,1,20,0.96)');
+  c.fillStyle=bv;c.fillRect(0,H*0.55,W,H*0.45);
   // Sparkles
   [[W*0.1,H*0.68],[W*0.9,H*0.68],[W*0.05,H*0.74],[W*0.95,H*0.74]].forEach(([sx2,sy2])=>{
     c.fillStyle='#fbbf24';c.fillRect(sx2,sy2,3,3);c.fillRect(sx2+1,sy2-2,1,1);c.fillRect(sx2-2,sy2+1,1,1);
@@ -715,8 +715,8 @@ function onTapXY(cx,cy){
     updateProg();updateHUD();showFB(130,GH-200,'⚡ +'+items.length+' BERSIH!','#fff176');
     checkLevelUp();return;
   }
-  // Bin tap — works ANY TIME when holding (even while walking to trash)
-  if(G.held){
+  // Bin tap — only works after arriving at trash (not while walking)
+  if(G.held&&!G.moving){
     if(cx>=6&&cx<=66&&cy>=GH-96&&cy<=GH-18){dropTrash('organic');return;}
     if(cx>=GW-68&&cx<=GW-10&&cy>=GH-96&&cy<=GH-18){dropTrash('inorganic');return;}
   }
@@ -743,8 +743,6 @@ function dropTrash(bt){
   if(!G.held)return;
   const item=G.held;
   const bx=bt==='organic'?20:GW-64;
-  // Cancel current movement, set new target to bin
-  G._arrive=null;
   G.obTX=bx;G.obTY=GH-100;
   G._arrive=()=>{
     item.gone=true;G.held=null;
